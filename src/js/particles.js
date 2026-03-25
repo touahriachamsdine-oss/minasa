@@ -30,7 +30,7 @@ export class ParticleField {
 
     animate() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.fillStyle = 'rgba(0, 255, 178, 0.2)';
+        this.ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--particle-color').trim() || 'rgba(0, 255, 178, 0.2)';
 
         this.particles.forEach(p => {
             p.x += p.vx;

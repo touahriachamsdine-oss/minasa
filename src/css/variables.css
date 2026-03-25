@@ -1,22 +1,57 @@
-/* variables.css */
+/* variables.css - Smart City 2.0 Design System */
 :root {
+    /* Base Colors (Dark Mode Default) */
     --bg-dark: #04060F;
     --neon-green: #00FFB2;
     --neon-teal: #00D4FF;
     --neon-gold: #FFD700;
-    --neon-red: #FF3E3E;
+    --neon-red: #FF4B4B;
+
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.1);
+
     --text-primary: #FFFFFF;
     --text-dim: rgba(255, 255, 255, 0.6);
+    --text-static: #FFFFFF;
+
     --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    --shadow-neon: 0 0 20px rgba(0, 255, 178, 0.2);
+    --shadow-neon: 0 0 30px rgba(0, 255, 178, 0.3);
+    --particle-color: rgba(0, 255, 178, 0.2);
+
+    --sidebar-w: 280px;
 }
 
+/* Light Mode Override (Clean White Aesthetic) */
 [data-theme="light"] {
-    --bg-dark: #F8F9FA;
-    --text-primary: #04060F;
-    --text-dim: rgba(4, 6, 15, 0.6);
-    --glass-bg: rgba(0, 0, 0, 0.05);
-    --glass-border: rgba(0, 0, 0, 0.1);
+    --bg-dark: #FFFFFF;
+
+    --neon-green: #008F63;
+    --neon-teal: #00668F;
+    --neon-gold: #A67C00;
+    --neon-red: #C62828;
+
+    --glass-bg: rgba(0, 0, 0, 0.03);
+    --glass-border: rgba(0, 0, 0, 0.08);
+
+    --text-primary: #121212;
+    --text-dim: rgba(0, 0, 0, 0.5);
+    --text-static: #FFFFFF;
+
+    --shadow-neon: 0 10px 40px rgba(0, 0, 0, 0.05);
+    --particle-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Global Reset/Base */
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    transition: background-color 0.4s, color 0.4s;
+    overflow-x: hidden;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--neon-green), var(--neon-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

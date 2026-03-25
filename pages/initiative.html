@@ -24,7 +24,7 @@
     </div>
 
     <script type="module">
-        import { supabase } from '../src/js/supabase.js';
+        import { neon } from '../src/js/neon.js';
         import { requireAuth } from '../src/js/auth.js';
         import { injectLayout } from '../src/js/layout.js';
 
@@ -32,7 +32,8 @@
             await requireAuth();
             injectLayout();
             const id = new URLSearchParams(window.location.search).get('id');
-            const { data: initia } = await supabase.from('initiatives').select('*').eq('id', id).single();
+            const { data: results } = await neon.from('initiatives').select().id(id);
+            const initia = results ? results[0] : null;
 
             if (initia) {
                 document.body.innerHTML = `

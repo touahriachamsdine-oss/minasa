@@ -1,12 +1,13 @@
-/* components.css */
+/* components.css - Modern PWA Components */
 .btn {
-    padding: 12px 25px;
-    border-radius: 12px;
-    font-weight: bold;
+    padding: 14px 32px;
+    /* User Req: Add more spacing */
+    border-radius: 16px;
+    font-weight: 700;
     transition: var(--transition);
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     cursor: pointer;
     text-decoration: none;
     border: 1px solid transparent;
@@ -18,100 +19,86 @@
 }
 
 .btn-primary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(0, 255, 178, 0.4);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 255, 178, 0.3);
 }
 
 .btn-outline {
     background: transparent;
     border-color: var(--glass-border);
-    color: white;
-}
-
-.btn-outline:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: white;
+    color: var(--text-primary);
 }
 
 .input-field {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    padding: 15px;
-    border-radius: 12px;
-    color: white;
+    padding: 18px 24px;
+    border-radius: 18px;
+    color: var(--text-primary);
     outline: none;
     transition: var(--transition);
+    margin-bottom: 10px;
+    /* User Req: Vertical spacing */
 }
 
 .input-field:focus {
-    border-color: var(--neon-green);
-    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--neon-teal);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .badge {
-    padding: 5px 12px;
+    padding: 8px 16px;
     border-radius: 50px;
     font-size: 11px;
-    font-family: 'DM Mono';
+    font-family: var(--mono);
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-/* Navigation Items (Modern Sidebar) */
+/* Sidebar Navigation */
 .nav-item {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 14px 20px;
-    border-radius: 18px;
+    padding: 16px 24px;
+    border-radius: 20px;
     color: var(--text-dim);
     text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+    /* User Req: Vertical spacing */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: transparent;
-    border: 1px solid transparent;
-}
-
-.nav-item span {
-    font-size: 18px;
-    opacity: 0.5;
-    transition: all 0.3s ease;
 }
 
 .nav-item:hover,
 .nav-item.active {
-    color: white;
+    color: var(--text-primary);
     background: var(--glass-bg);
-    border-color: var(--glass-border);
-    transform: translateX(10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    transform: translateX(8px);
 }
 
 [dir="rtl"] .nav-item:hover,
 [dir="rtl"] .nav-item.active {
-    transform: translateX(-10px);
-}
-
-.nav-item:hover span,
-.nav-item.active span {
-    opacity: 1;
-    transform: scale(1.2);
+    transform: translateX(-8px);
 }
 
 .icon-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
+    width: 44px;
+    height: 44px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    padding: 8px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
 }
 
 .icon-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--glass-border);
     transform: scale(1.1);
 }

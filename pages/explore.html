@@ -23,13 +23,13 @@
     </div>
 
     <script type="module">
-        import { supabase } from '../src/js/supabase.js';
+        import { neon } from '../src/js/neon.js';
         import { injectLayout } from '../src/js/layout.js';
 
         injectLayout();
 
         async function load() {
-            const { data } = await supabase.from('initiatives').select('*').eq('is_approved', true);
+            const { data } = await neon.from('initiatives').select().eq('is_approved', 'true');
             const grid = document.getElementById('explore-grid');
             grid.innerHTML = (data || []).map(i => `
                 <div class="glass glass-interactive reveal active" style="padding:40px; border-radius:30px;" onclick="location.href='initiative.html?id=${i.id}'">

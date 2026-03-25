@@ -1,5 +1,5 @@
 // Internationalization System
-import { supabase } from './supabase.js';
+import { neon } from './neon.js';
 
 export const TRANSLATIONS = {
     ar: {

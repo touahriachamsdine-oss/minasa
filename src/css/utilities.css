@@ -1,6 +1,12 @@
-/* utilities.css */
+/* Global Utilities */
 .text-center {
     text-align: center;
+}
+
+.flex-split {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .flex-center {
@@ -9,17 +15,49 @@
     justify-content: center;
 }
 
-.hidden {
-    opacity: 0;
-    pointer-events: none;
+/* Vertically Stacked elements with 10px gap (User Req) */
+.v-stack,
+.v-stack-10 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
 }
 
 .mt-40 {
     margin-top: 40px;
 }
 
-.mb-20 {
-    margin-bottom: 20px;
+.mb-40 {
+    margin-bottom: 40px;
+}
+
+.mt-80 {
+    margin-top: 80px;
+}
+
+.mb-80 {
+    margin-bottom: 80px;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .pwa-banner {
@@ -28,9 +66,4 @@
     left: 20px;
     right: 20px;
     z-index: 2000;
-}
-
-[dir="rtl"] .pwa-banner {
-    left: 20px;
-    right: 20px;
 }

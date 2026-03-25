@@ -18,7 +18,7 @@ export function injectLayout() {
                     <div class="logo syne gradient-text" style="font-size: 22px; font-weight:800; letter-spacing:-1px;">MOUBADARA</div>
                 </div>
                 
-                <nav style="display: flex; flex-direction: column; gap: 8px;">
+                <nav style="display: flex; flex-direction: column; gap: 10px;">
                     <a href="dashboard.html" class="nav-item ${isActive('dashboard')}"><span>🏠</span> ${t.nav_dashboard}</a>
                     <a href="tasks.html" class="nav-item ${isActive('tasks')}"><span>📋</span> ${t.nav_tasks}</a>
                     <a href="notifications.html" class="nav-item ${isActive('notifications')}"><span>🔔</span> ${t.nav_notifications}</a>

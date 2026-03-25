@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة التحكم — Moubadara</title>
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/typography.css">
+    <link rel="stylesheet" href="../src/css/glass.css">
+    <link rel="stylesheet" href="../src/css/components.css">
+    <link rel="stylesheet" href="../src/css/layout.css">
+    <link rel="stylesheet" href="../src/css/utilities.css">
+</head>
+
+<body class="dashboard-grid">
+    <aside class="sidebar glass" style="margin:20px; border-radius:30px; padding:40px;">
+        <h2 class="syne gradient-text">ADMIN</h2>
+    </aside>
+    <main class="container mt-40">
+        <h1 class="gradient-text mb-20">نظرة عامة</h1>
+
+        <div class="grid-2 mt-40" style="gap:40px;">
+            <div class="glass" style="padding:40px;">
+                <h3 class="syne mb-20">GEOGRAPHIC DENSITY</h3>
+                <div id="wilaya-map" style="height:400px;"></div>
+            </div>
+            <div class="glass" style="padding:40px;">
+                <h3 class="syne mb-20">APPROVAL QUEUE</h3>
+                <div id="pending-list" style="display:flex; flex-direction:column; gap:20px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { requireAdmin } from '../src/js/auth.js';
+        import { supabase } from '../src/js/supabase.js';
+        import { injectLayout } from '../src/js/layout.js';
+        import { renderWilayaMap } from '../src/js/map.js';
+
+        async function init() {
+            const auth = await requireAdmin();
+            if (!auth) return;
+            injectLayout();
+
+            // Load Stats for Map
+            const { data: statsData } = await supabase.from('initiatives').select('wilaya');
+            const stats = {};
+            (statsData || []).forEach(i => stats[i.wilaya] = (stats[i.wilaya] || 0) + 1);
+            renderWilayaMap('wilaya-map', stats);
+
+            const { data } = await supabase.from('initiatives').select('*').eq('is_approved', false);
+            const list = document.getElementById('pending-list');
+            list.innerHTML = (data || []).map(i => `
+                <div class="glass flex-center" style="padding:20px; justify-content:space-between; border-radius:20px;">
+                    <div class="mono" style="font-size:14px;">${i.title_ar} (${i.wilaya})</div>
+                    <button class="btn btn-primary" style="padding:10px 20px;" onclick="approve('${i.id}')">APPROVE</button>
+                </div>
+            `).join('');
+        }
+
+        window.approve = async (id) => {
+            await supabase.from('initiatives').update({ is_approved: true }).eq('id', id);
+            location.reload();
+        };
+
+        init();
+    </script>
+</body>
+
+</html>

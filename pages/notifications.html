@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <title>تنبيهات — Moubadara</title>
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/typography.css">
+    <link rel="stylesheet" href="../src/css/glass.css">
+    <link rel="stylesheet" href="../src/css/components.css">
+    <link rel="stylesheet" href="../src/css/layout.css">
+</head>
+
+<body class="dashboard-grid">
+    <aside class="sidebar"></aside>
+    <main class="container mt-40">
+        <h1 class="gradient-text mb-20">تنبيهات</h1>
+        <div id="notif-list" style="display:flex; flex-direction:column; gap:20px;"></div>
+    </main>
+
+    <script type="module">
+        import { requireAuth } from '../src/js/auth.js';
+        import { supabase } from '../src/js/supabase.js';
+        import { injectLayout } from '../src/js/layout.js';
+
+        async function init() {
+            const auth = await requireAuth();
+            if (!auth) return;
+            injectLayout();
+
+            const { data } = await supabase.from('notifications')
+                .select('*')
+                .eq('user_id', auth.user.id)
+                .order('created_at', { ascending: false });
+
+            const list = document.getElementById('notif-list');
+            list.innerHTML = (data || []).map(n => `
+                <div class="glass" style="padding:20px; border-radius:20px; border-left:4px solid var(--neon-teal);">
+                    <div class="mono" style="font-size:10px; opacity:0.5;">${new Date(n.created_at).toLocaleString()}</div>
+                    <div style="margin-top:10px;">${n.title_ar}</div>
+                </div>
+            `).join('');
+        }
+        init();
+    </script>
+</body>
+
+</html>

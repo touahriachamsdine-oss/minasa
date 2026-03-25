@@ -1,0 +1,36 @@
+/* utilities.css */
+.text-center {
+    text-align: center;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.pwa-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 2000;
+}
+
+[dir="rtl"] .pwa-banner {
+    left: 20px;
+    right: 20px;
+}

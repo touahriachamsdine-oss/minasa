@@ -1,0 +1,23 @@
+{
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/pages/$1"
+        },
+        {
+            "source": "/",
+            "destination": "/pages/index.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/public/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000, immutable"
+                }
+            ]
+        }
+    ]
+}

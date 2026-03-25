@@ -1,0 +1,36 @@
+/* typography.css */
+@font-face {
+    font-family: 'Syne';
+    src: url('../../public/fonts/syne-800.woff2') format('woff2');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    src: url('../../public/fonts/dm-sans-400.woff2') format('woff2');
+    font-weight: 400;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.syne {
+    font-family: 'Syne', sans-serif;
+    text-transform: uppercase;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, var(--neon-green), var(--neon-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mono {
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+}

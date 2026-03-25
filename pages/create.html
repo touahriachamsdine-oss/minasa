@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <title>تأسيس مبادرة — Moubadara</title>
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/typography.css">
+    <link rel="stylesheet" href="../src/css/glass.css">
+    <link rel="stylesheet" href="../src/css/components.css">
+    <link rel="stylesheet" href="../src/css/layout.css">
+    <link rel="stylesheet" href="../src/css/utilities.css">
+</head>
+
+<body class="container mt-40">
+    <div class="glass" style="padding:40px; max-width:600px; margin:0 auto;">
+        <h1 class="gradient-text mb-20 text-center">أطلق مبادرتك</h1>
+        <form id="create-form" style="display:flex; flex-direction:column; gap:20px;">
+            <input type="text" id="title_ar" placeholder="اسم المبادرة (بالعربية)" class="input-field" required>
+            <textarea id="desc_ar" placeholder="وصف المبادرة" class="input-field" rows="4"></textarea>
+            <select id="wilaya" class="input-field"></select>
+            <input type="text" id="neighborhood" placeholder="الحي" class="input-field" required>
+            <button type="submit" class="btn btn-primary">إطلاق الصاروخ 🚀</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { requireAuth } from '../src/js/auth.js';
+        import { createInitiative } from '../src/js/db.js';
+        import { APP_CONFIG } from '../src/js/config.js';
+        import { injectLayout } from '../src/js/layout.js';
+
+        async function init() {
+            const auth = await requireAuth();
+            if (!auth) return;
+            injectLayout();
+
+            const select = document.getElementById('wilaya');
+            APP_CONFIG.wilayas.forEach(w => {
+                const opt = document.createElement('option');
+                opt.value = w; opt.innerText = w;
+                select.appendChild(opt);
+            });
+        }
+
+        document.getElementById('create-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const { user } = await requireAuth();
+            const data = {
+                title_ar: document.getElementById('title_ar').value,
+                description_ar: document.getElementById('desc_ar').value,
+                wilaya: document.getElementById('wilaya').value,
+                neighborhood: document.getElementById('neighborhood').value,
+                title_fr: '', title_en: '' // Simplified for demo
+            };
+            const res = await createInitiative(data, user.id);
+            if (res.data) window.location.href = `initiative.html?id=${res.data.id}`;
+        };
+
+        init();
+    </script>
+</body>
+
+</html>

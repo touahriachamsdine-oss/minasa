@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة التحكم — Moubadara</title>
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/typography.css">
+    <link rel="stylesheet" href="../src/css/glass.css">
+    <link rel="stylesheet" href="../src/css/components.css">
+    <link rel="stylesheet" href="../src/css/layout.css">
+    <link rel="stylesheet" href="../src/css/utilities.css">
+</head>
+
+<body class="dashboard-grid">
+    <aside class="sidebar glass" style="margin:20px; border-radius:30px;"></aside>
+    <main class="container mt-40">
+        <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+            <h1 class="gradient-text">مرحبا بك</h1>
+            <div id="user-impact" class="glass badge">POINTS: 0</div>
+        </header>
+        <div id="initiatives-grid"
+            style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:20px;"></div>
+    </main>
+
+    <script type="module">
+        import { requireAuth } from '../src/js/auth.js';
+        import { getMyInitiatives } from '../src/js/db.js';
+        import { setLanguage, getCurrentLang } from '../src/js/i18n.js';
+        import { injectLayout } from '../src/js/layout.js';
+
+        async function init() {
+            const auth = await requireAuth();
+            if (!auth) return;
+
+            setLanguage(getCurrentLang());
+            injectLayout();
+
+            document.getElementById('user-impact').innerText = `POINTS: ${auth.profile.impact_points}`;
+
+            const { data } = await getMyInitiatives(auth.user.id);
+            renderInitiatives(data || []);
+        }
+
+        function renderInitiatives(list) {
+            const container = document.getElementById('initiatives-grid');
+            container.innerHTML = list.map(item => `
+                <div class="glass glass-interactive reveal active" style="padding:30px; border-radius:30px;" onclick="location.href='initiative.html?id=${item.initiatives.id}'">
+                    <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:20px;">
+                        <span class="badge" style="background:rgba(0,255,178,0.1); color:var(--neon-green); border:1px solid var(--neon-green); text-transform:uppercase;">${item.initiatives.category}</span>
+                        <div class="mono" style="font-size:12px; opacity:0.5;">${item.role.toUpperCase()}</div>
+                    </div>
+                    <h3 class="syne" style="font-size:20px; line-height:1.2; margin-bottom:15px;">${item.initiatives.title_ar}</h3>
+                    <div class="mono" style="font-size:12px; color:var(--text-dim); margin-bottom:20px;">${item.initiatives.wilaya} — ${item.initiatives.neighborhood}</div>
+                    
+                    <div style="height:4px; background:rgba(255,255,255,0.05); border-radius:2px; margin-bottom:10px;">
+                        <div style="height:100%; width:${item.initiatives.health_score}%; background:var(--neon-green); border-radius:2px; box-shadow:0 0 10px var(--neon-green);"></div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:10px;" class="mono">
+                        <span>HEALTH: ${item.initiatives.health_score}%</span>
+                        <span style="color:var(--neon-teal);">${item.initiatives.status.toUpperCase()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

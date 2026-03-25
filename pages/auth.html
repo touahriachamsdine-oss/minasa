@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <title>الدخول — Moubadara</title>
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/typography.css">
+    <link rel="stylesheet" href="../src/css/glass.css">
+    <link rel="stylesheet" href="../src/css/components.css">
+    <link rel="stylesheet" href="../src/css/animations.css">
+    <link rel="stylesheet" href="../src/css/layout.css">
+    <link rel="stylesheet" href="../src/css/utilities.css">
+</head>
+
+<body class="flex-center" style="height: 100vh;">
+    <div id="living-canvas" style="position:fixed; inset:0; z-index:-1;"></div>
+
+    <div class="glass" style="padding:40px; width:100%; max-width:400px;">
+        <h2 class="gradient-text mb-20 text-center">انضم إلينا</h2>
+        <form id="auth-form" style="display:flex; flex-direction:column; gap:20px;">
+            <input type="email" id="email" placeholder="البريد الإلكتروني" class="input-field" required>
+            <input type="password" id="password" placeholder="كلمة المرور" class="input-field" required>
+            <button type="submit" class="btn btn-primary" style="width:100%;">دخول</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { signIn } from '../src/js/auth.js';
+        import { injectLayout } from '../src/js/layout.js';
+
+        injectLayout(); // Handles background
+
+        document.getElementById('auth-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.disabled = true;
+            const res = await signIn(document.getElementById('email').value, document.getElementById('password').value);
+            if (res?.error) alert(res.error);
+            btn.disabled = false;
+        };
+    </script>
+</body>
+
+</html>

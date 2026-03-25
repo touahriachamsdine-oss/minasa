@@ -1,0 +1,30 @@
+/* glass.css */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+    pointer-events: none;
+}
+
+.glass-interactive {
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.glass-interactive:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--neon-green);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-neon);
+}

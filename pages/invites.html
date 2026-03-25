@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <title>دعوات — Moubadara</title>
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/typography.css">
+    <link rel="stylesheet" href="../src/css/glass.css">
+    <link rel="stylesheet" href="../src/css/components.css">
+    <link rel="stylesheet" href="../src/css/layout.css">
+</head>
+
+<body class="dashboard-grid">
+    <aside class="sidebar"></aside>
+    <main class="container mt-40">
+        <h1 class="gradient-text mb-20">دعواتي</h1>
+        <div id="invite-list"
+            style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:30px;"></div>
+    </main>
+
+    <script type="module">
+        import { requireAuth } from '../src/js/auth.js';
+        import { supabase } from '../src/js/supabase.js';
+        import { injectLayout } from '../src/js/layout.js';
+
+        async function init() {
+            const auth = await requireAuth();
+            if (!auth) return;
+            injectLayout();
+
+            const { data } = await supabase.from('invites')
+                .select('*, initiatives(*)')
+                .eq('invited_email', auth.user.email);
+
+            const list = document.getElementById('invite-list');
+            list.innerHTML = (data || []).map(inv => `
+                <div class="glass" style="padding:30px; border-radius:30px;">
+                    <div class="badge mb-20" style="background:var(--neon-gold); color:black;">دعوة جديدة</div>
+                    <h3 class="syne">${inv.initiatives.title_ar}</h3>
+                    <p style="opacity:0.6; margin-top:10px;">تمت دعوتك للانضمام كـ ${inv.role}</p>
+                    <button class="btn btn-primary mt-40" onclick="accept('${inv.token}')">قبول الدعوة</button>
+                </div>
+            `).join('');
+        }
+        init();
+    </script>
+</body>
+
+</html>

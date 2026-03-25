@@ -1,0 +1,22 @@
+/* variables.css */
+:root {
+    --bg-dark: #04060F;
+    --neon-green: #00FFB2;
+    --neon-teal: #00D4FF;
+    --neon-gold: #FFD700;
+    --neon-red: #FF3E3E;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #FFFFFF;
+    --text-dim: rgba(255, 255, 255, 0.6);
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-neon: 0 0 20px rgba(0, 255, 178, 0.2);
+}
+
+[data-theme="light"] {
+    --bg-dark: #F8F9FA;
+    --text-primary: #04060F;
+    --text-dim: rgba(4, 6, 15, 0.6);
+    --glass-bg: rgba(0, 0, 0, 0.05);
+    --glass-border: rgba(0, 0, 0, 0.1);
+}

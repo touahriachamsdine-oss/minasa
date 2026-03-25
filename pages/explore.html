@@ -31,7 +31,7 @@
             injectLayout();
 
             async function load() {
-                const { data } = await neon.from('initiatives').select().eq('is_approved', 'true');
+                const { data } = await neon.from('initiatives').select().eq('is_approved', true);
                 const grid = document.getElementById('explore-grid');
                 grid.innerHTML = (data || []).map(i => `
                 <div class="glass glass-interactive reveal active" style="padding:40px; border-radius:30px;" onclick="location.href='initiative.html?id=${i.id}'">

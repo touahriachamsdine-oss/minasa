@@ -1,19 +1,10 @@
-/* typography.css */
-@font-face {
-    font-family: 'Syne';
-    src: url('../../public/fonts/syne-800.woff2') format('woff2');
-    font-weight: 800;
-}
-
-@font-face {
-    font-family: 'DM Sans';
-    src: url('../../public/fonts/dm-sans-400.woff2') format('woff2');
-    font-weight: 400;
-}
+/* typography.css - High Fashion Typography */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap');
 
 body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
 }
 
 h1,
@@ -21,16 +12,21 @@ h2,
 h3,
 .syne {
     font-family: 'Syne', sans-serif;
-    text-transform: uppercase;
-}
-
-.gradient-text {
-    background: linear-gradient(90deg, var(--neon-green), var(--neon-teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
 }
 
 .mono {
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 1px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    letter-spacing: 0;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-teal) 50%, #007AFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 178, 0.3));
 }

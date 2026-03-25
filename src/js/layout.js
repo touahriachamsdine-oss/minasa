@@ -1,4 +1,4 @@
-// Shared Layout Injection Logic (Fully Localized)
+// Shared Layout Injection Logic (Fully Localized + Branded)
 import { signOut } from './auth.js';
 import { getCurrentLang, setLanguage, TRANSLATIONS } from './i18n.js';
 import { toggleTheme } from './theme.js';
@@ -13,7 +13,12 @@ export function injectLayout() {
     if (sidebar) {
         sidebar.innerHTML = `
             <div style="padding: 40px 20px; display: flex; flex-direction: column; height: 100%; gap: 10px;">
-                <div class="logo syne gradient-text mb-40" style="font-size: 28px; font-weight:800; text-align:center;">MOUBADARA</div>
+                <div class="logo-container" style="display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:40px;">
+                    <div class="logo-icon" style="width:35px; height:35px; background:var(--neon-green); border-radius:10px; display:grid; place-items:center; box-shadow: var(--shadow-neon);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    </div>
+                    <div class="logo syne gradient-text" style="font-size: 22px; font-weight:800; letter-spacing:-1px;">MOUBADARA</div>
+                </div>
                 
                 <nav style="display: flex; flex-direction: column; gap: 8px;">
                     <a href="dashboard.html" class="nav-item ${isActive('dashboard')}"><span>🏠</span> ${t.nav_dashboard}</a>

@@ -14,48 +14,88 @@
     <link rel="stylesheet" href="../src/css/layout.css">
     <link rel="stylesheet" href="../src/css/utilities.css">
     <link rel="manifest" href="../manifest.json">
+    <style>
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(0, 255, 178, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .floating-card {
+            transition: transform 0.3s ease;
+        }
+
+        .floating-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+    </style>
 </head>
 
 <body>
     <div id="living-canvas" style="position:fixed; inset:0; z-index:-1;"></div>
+    <div class="hero-glow"></div>
 
-    <nav class="glass navbar flex-center" style="justify-content: space-between;">
-        <div class="logo">مبادرة</div>
+    <nav class="glass navbar flex-center" style="justify-content: space-between; border-radius: 20px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <div
+                style="width:30px; height:30px; background:var(--neon-green); border-radius:8px; display:grid; place-items:center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+            </div>
+            <div class="logo syne gradient-text" style="font-weight:800; letter-spacing:-1px;">MOUBADARA</div>
+        </div>
         <div class="nav-links flex-center" style="gap:20px;">
             <a href="explore.html" data-i18n="nav_explore">استكشف</a>
-            <a href="auth.html" class="btn btn-primary" data-i18n="nav_login">دخول</a>
+            <a href="auth.html" class="btn btn-primary" data-i18n="nav_login"
+                style="padding:10px 25px; border-radius:12px;">دخول</a>
         </div>
     </nav>
 
     <main class="container">
-        <section class="hero text-center mt-40" style="padding: 100px 20px;">
-            <h1 class="reveal active gradient-text syne" style="font-size: clamp(48px, 10vw, 84px); line-height:1;"
+        <!-- HERO SECTION -->
+        <section class="hero text-center mt-80" style="padding: 120px 20px; position:relative;">
+            <div class="badge mb-20 reveal active"
+                style="background:var(--glass-border); color:var(--neon-green); padding:10px 20px; border-radius:100px; font-weight:600; font-family:var(--mono);">
+                🇩🇿 المنصة الوطنية للمبادرات المحلية
+            </div>
+            <h1 class="reveal active gradient-text syne"
+                style="font-size: clamp(48px, 12vw, 110px); line-height:0.85; margin-bottom:20px;"
                 data-i18n="hero_title">حوّل حيّك إلى مجتمع</h1>
-            <p class="reveal active mb-40" style="font-size: 24px; opacity:0.8; max-width: 600px; margin-inline:auto;"
-                data-i18n="hero_subtitle">منصة لمبادرات الجزائريين من أجل حي أنظف، أجمل، وأكثر أماناً.</p>
+            <p class="reveal active mb-40"
+                style="font-size: 22px; opacity:0.7; max-width: 700px; margin-inline:auto; line-height:1.5;"
+                data-i18n="hero_subtitle">تمكين الجزائريين من قيادة التغيير الإيجابي في أحيائهم عبر التكنولوجيا والتعاون
+                الجماعي.</p>
 
-            <div class="flex-center" style="gap:20px;">
+            <div class="flex-center reveal active" style="gap:20px;">
                 <a href="auth.html" class="glass glass-interactive btn btn-primary"
-                    style="padding:20px 40px; font-size:18px;" data-i18n="btn_start">ابدأ الآن</a>
+                    style="padding:22px 50px; font-size:18px; border-radius:18px; font-weight:700;"
+                    data-i18n="btn_start">ابدأ الآن</a>
                 <a href="explore.html" class="glass glass-interactive btn-outline"
-                    style="padding:20px 40px; font-size:18px; border:1px solid var(--glass-border);"
+                    style="padding:22px 50px; font-size:18px; border:1px solid var(--glass-border); border-radius:18px; font-weight:700;"
                     data-i18n="nav_explore">استكشف المبادرات</a>
             </div>
 
             <!-- MOCK STATS BAR -->
-            <div class="flex-center mt-80" style="gap:60px; flex-wrap:wrap;">
+            <div class="flex-center mt-80 reveal active" style="gap:80px; flex-wrap:wrap; opacity:0.8;">
                 <div class="text-center">
-                    <div class="syne gradient-text" style="font-size:48px; font-weight:800;">450+</div>
-                    <p style="font-size:14px; opacity:0.6; text-transform:uppercase; letter-spacing:2px;">مبادرة مكتملة
+                    <div class="syne gradient-text" style="font-size:54px; font-weight:800;">450+</div>
+                    <p class="mono" style="font-size:12px; text-transform:uppercase; letter-spacing:2px;">مبادرة مكتملة
                     </p>
                 </div>
                 <div class="text-center">
-                    <div class="syne gradient-text" style="font-size:48px; font-weight:800;">12K</div>
-                    <p style="font-size:14px; opacity:0.6; text-transform:uppercase; letter-spacing:2px;">متطوع نشط</p>
+                    <div class="syne gradient-text" style="font-size:54px; font-weight:800;">12K</div>
+                    <p class="mono" style="font-size:12px; text-transform:uppercase; letter-spacing:2px;">متطوع نشط</p>
                 </div>
                 <div class="text-center">
-                    <div class="syne gradient-text" style="font-size:48px; font-weight:800;">58</div>
-                    <p style="font-size:14px; opacity:0.6; text-transform:uppercase; letter-spacing:2px;">ولاية مغطاة
+                    <div class="syne gradient-text" style="font-size:54px; font-weight:800;">58</div>
+                    <p class="mono" style="font-size:12px; text-transform:uppercase; letter-spacing:2px;">ولاية مغطاة
                     </p>
                 </div>
             </div>
@@ -63,28 +103,32 @@
 
         <!-- HOW IT WORKS -->
         <section class="mt-80 mb-80">
-            <h2 class="syne text-center mb-40" style="font-size:32px;">كيف تساهم في تغيير حيّك؟</h2>
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:30px;">
-                <div class="glass" style="padding:40px; border-radius:30px;">
-                    <div style="font-size:40px; margin-bottom:20px;">💡</div>
-                    <h3 class="syne mb-15">ارفع فكرة</h3>
-                    <p style="opacity:0.7; line-height:1.6;">لديك فكرة لتحسين الحي؟ شاركها معنا في دقائق وابدأ بجمع
-                        المتطوعين.</p>
+            <h2 class="syne text-center mb-60 reveal active" style="font-size:42px; letter-spacing:-2px;">كيف نصنع
+                الفرق؟</h2>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:30px;">
+                <div class="glass floating-card reveal active" style="padding:50px; border-radius:40px;">
+                    <div style="font-size:50px; margin-bottom:30px; filter: drop-shadow(0 0 10px var(--neon-green));">💡
+                    </div>
+                    <h3 class="syne mb-20" style="font-size:24px;">ارفع فكرة</h3>
+                    <p style="opacity:0.6; line-height:1.7; font-size:16px;">حوّل ملاحظاتك في الحي إلى خطة عمل ملموسة.
+                        حدد الأهداف والاحتياجات في دقائق.</p>
                 </div>
-                <div class="glass" style="padding:40px; border-radius:30px;">
-                    <div style="font-size:40px; margin-bottom:20px;">🤝</div>
-                    <h3 class="syne mb-15">انضم لفريق</h3>
-                    <p style="opacity:0.7; line-height:1.6;">استكشف المبادرات الجارية في ولايتك وساهم بمهاراتك ووقتك.
-                    </p>
+                <div class="glass floating-card reveal active"
+                    style="padding:50px; border-radius:40px; border-color: var(--neon-teal);">
+                    <div style="font-size:50px; margin-bottom:30px; filter: drop-shadow(0 0 10px var(--neon-teal));">🤝
+                    </div>
+                    <h3 class="syne mb-20" style="font-size:24px;">قُد الفريق</h3>
+                    <p style="opacity:0.6; line-height:1.7; font-size:16px;">اجمع المتطوعين، وزّع المهام، وتواصل مع
+                        جيرانك لتحويل الفكرة إلى واقع ميداني.</p>
                 </div>
-                <div class="glass" style="padding:40px; border-radius:30px;">
-                    <div style="font-size:40px; margin-bottom:20px;">📈</div>
-                    <h3 class="syne mb-15">حقّق الأثر</h3>
-                    <p style="opacity:0.7; line-height:1.6;">وثّق الإنجازات، اجمع نقاط التأثير، وكن قدوة للتغيير
-                        الإيجابي.</p>
+                <div class="glass floating-card reveal active" style="padding:50px; border-radius:40px;">
+                    <div style="font-size:50px; margin-bottom:30px; filter: drop-shadow(0 0 10px var(--neon-gold));">📈
+                    </div>
+                    <h3 class="syne mb-20" style="font-size:24px;">وثّق الأثر</h3>
+                    <p style="opacity:0.6; line-height:1.7; font-size:16px;">شارك صور الإنجازات، اجمع نقاط التأثير،
+                        وساهم في بناء قاعدة بيانات للنهوض بالمجتمع.</p>
                 </div>
             </div>
-        </section>
         </section>
     </main>
 
@@ -98,7 +142,7 @@
         window.onload = () => {
             initTheme();
             setLanguage(getCurrentLang());
-            injectLayout(); // Handles background & particles
+            injectLayout();
             initScrollReveals();
             initPWA();
         };

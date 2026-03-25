@@ -13,10 +13,12 @@ h3,
 .syne {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    line-height: 0.9;
+    line-height: 1.25;
+    /* Fixed clipping: increased from 0.9 */
     letter-spacing: -0.04em;
     margin-bottom: 20px;
-    /* Base breathing room */
+    padding-bottom: 5px;
+    /* Ensure descenders (ي, g, y) aren't cut off */
 }
 
 /* Vertical Spacing Helper (User Req: 10px spacing) */
@@ -33,6 +35,8 @@ section,
 }
 
 .gradient-text {
+    display: inline-block;
+    /* Helps with background-clip rendering */
     background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-teal) 50%, #007AFF 100%);
     background-clip: text;
     -webkit-background-clip: text;

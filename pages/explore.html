@@ -13,25 +13,27 @@
     <link rel="stylesheet" href="../src/css/utilities.css">
 </head>
 
-<body class="container mt-40">
-    <header style="margin-bottom:60px;">
+<body class="dashboard-grid">
+    <aside class="sidebar glass" style="margin:20px; border-radius:30px;"></aside>
+    <main class="container mt-40">
         <h1 class="gradient-text">استكشف المبادرات</h1>
-    </header>
+        </header>
 
-    <div id="explore-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:30px;">
-        <!-- Loaded via JS -->
-    </div>
+        <div id="explore-grid"
+            style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:30px;">
+            <!-- Loaded via JS -->
+        </div>
 
-    <script type="module">
-        import { neon } from '../src/js/neon.js';
-        import { injectLayout } from '../src/js/layout.js';
+        <script type="module">
+            import { neon } from '../src/js/neon.js';
+            import { injectLayout } from '../src/js/layout.js';
 
-        injectLayout();
+            injectLayout();
 
-        async function load() {
-            const { data } = await neon.from('initiatives').select().eq('is_approved', 'true');
-            const grid = document.getElementById('explore-grid');
-            grid.innerHTML = (data || []).map(i => `
+            async function load() {
+                const { data } = await neon.from('initiatives').select().eq('is_approved', 'true');
+                const grid = document.getElementById('explore-grid');
+                grid.innerHTML = (data || []).map(i => `
                 <div class="glass glass-interactive reveal active" style="padding:40px; border-radius:30px;" onclick="location.href='initiative.html?id=${i.id}'">
                     <div class="badge mb-20" style="background:var(--neon-green); color:black;">${i.category.toUpperCase()}</div>
                     <h2 class="syne" style="font-size:24px; margin-bottom:15px;">${i.title_ar}</h2>
@@ -43,9 +45,9 @@
                     </div>
                 </div>
             `).join('');
-        }
-        load();
-    </script>
+            }
+            load();
+        </script>
 </body>
 
 </html>

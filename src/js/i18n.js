@@ -1,5 +1,6 @@
-// Internationalization System
+// Internationalization System (Neon Native)
 import { neon } from './neon.js';
+import { getSession } from './auth.js';
 
 export const TRANSLATIONS = {
     ar: {
@@ -42,35 +43,18 @@ export function setLanguage(lang) {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
-    // Font swapping
-    if (lang === 'ar') {
-        document.body.style.fontFamily = "'Noto Naskh Arabic', serif";
-    } else {
-        document.body.style.fontFamily = "'DM Sans', sans-serif";
-    }
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (TRANSLATIONS[lang][key]) el.textContent = TRANSLATIONS[lang][key];
+    });
 
-    // Staggered update
-    document.body.classList.add('hidden');
-    setTimeout(() => {
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (TRANSLATIONS[lang][key]) el.textContent = TRANSLATIONS[lang][key];
-        });
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-i18n-placeholder');
-            if (TRANSLATIONS[lang][key]) el.placeholder = TRANSLATIONS[lang][key];
-        });
-        document.body.classList.remove('hidden');
-    }, 150);
-
-    // Sync with user profile if logged in
     syncLang(lang);
 }
 
 async function syncLang(lang) {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-        await supabase.from('profiles').update({ lang }).eq('id', user.id);
+    const session = await getSession();
+    if (session) {
+        await neon.from('profiles').update({ lang }, session.user.id);
     }
 }
 

@@ -1,5 +1,6 @@
-// Theme Persistence Logic
-import { supabase } from './supabase.js';
+// Theme Persistence Logic (Neon Native)
+import { neon } from './neon.js';
+import { getSession } from './auth.js';
 
 export function initTheme() {
     const currentTheme = localStorage.getItem('moubadara_theme') || 'dark';
@@ -7,12 +8,15 @@ export function initTheme() {
 }
 
 export async function toggleTheme() {
-    const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    const current = document.documentElement.getAttribute('data-theme');
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('moubadara_theme', newTheme);
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-        await supabase.from('profiles').update({ theme: newTheme }).eq('id', user.id);
+    const session = await getSession();
+    if (session) {
+        await neon.from('profiles').update({ theme: newTheme }, session.user.id);
     }
+    return newTheme;
 }

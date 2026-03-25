@@ -21,27 +21,32 @@
     --sidebar-w: 280px;
 }
 
-/* Light Mode Override (Clean White Aesthetic) */
+/* Light Mode Override (Premium White Aesthetic) */
 [data-theme="light"] {
     --bg-dark: #FFFFFF;
 
-    --neon-green: #008F63;
-    --neon-teal: #00668F;
-    --neon-gold: #A67C00;
-    --neon-red: #C62828;
+    /* Elegant, Higher-Contrast Colors for White background */
+    --neon-green: #07C18B;
+    /* Vibrant Emerald */
+    --neon-teal: #0062FF;
+    /* Sharp Royal Blue */
+    --neon-gold: #C69400;
+    /* Rich Gold */
+    --neon-red: #E53935;
+    /* Active Red */
 
     --glass-bg: rgba(0, 0, 0, 0.03);
     --glass-border: rgba(0, 0, 0, 0.08);
 
-    --text-primary: #121212;
-    --text-dim: rgba(0, 0, 0, 0.5);
+    --text-primary: #12141D;
+    --text-dim: rgba(18, 20, 29, 0.6);
     --text-static: #FFFFFF;
 
-    --shadow-neon: 0 10px 40px rgba(0, 0, 0, 0.05);
-    --particle-color: rgba(0, 0, 0, 0.1);
+    --shadow-neon: 0 10px 40px rgba(0, 98, 255, 0.1);
+    --particle-color: rgba(0, 98, 255, 0.08);
 }
 
-/* Global Reset/Base */
+/* Global Reset & Basic Utils */
 body {
     background-color: var(--bg-dark);
     color: var(--text-primary);

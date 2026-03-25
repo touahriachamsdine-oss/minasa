@@ -1,34 +1,35 @@
-const fsStandard = require('fs');
+const fs = require('fs');
 const path = require('path');
 
 async function build() {
     const root = __dirname;
     const dist = path.join(root, 'dist');
 
+    console.log('Build: Starting bundling process...');
+
     // 1. Clean/Create dist
-    if (fsStandard.existsSync(dist)) {
-        fsStandard.rmSync(dist, { recursive: true, force: true });
+    if (fs.existsSync(dist)) {
+        fs.rmSync(dist, { recursive: true, force: true });
     }
-    fsStandard.mkdirSync(dist);
+    fs.mkdirSync(dist, { recursive: true });
 
-    // 2. Clone project structure to dist
-    const foldersToCopy = ['pages', 'public', 'src'];
-    const filesToCopy = ['vercel.json', 'manifest.json', 'README.md'];
+    // 2. Clone project structure to dist (Native cpSync handles directories perfectly)
+    const itemsToCopy = ['pages', 'public', 'src', 'vercel.json', 'manifest.json', 'README.md'];
 
-    foldersToCopy.forEach(folder => {
-        copyRecursiveSync(path.join(root, folder), path.join(dist, folder));
-    });
+    itemsToCopy.forEach(item => {
+        const srcPath = path.join(root, item);
+        const destPath = path.join(dist, item);
 
-    filesToCopy.forEach(file => {
-        if (fsStandard.existsSync(path.join(root, file))) {
-            fsStandard.copyFileSync(path.join(root, file), path.join(dist, file));
+        if (fs.existsSync(srcPath)) {
+            fs.cpSync(srcPath, destPath, { recursive: true });
+            console.log(`Build: Copied ${item}`);
         }
     });
 
     // 3. Inject environment variables into the DIST version of config.js
     const configPath = path.join(dist, 'src/js/config.js');
-    if (fsStandard.existsSync(configPath)) {
-        let config = fsStandard.readFileSync(configPath, 'utf8');
+    if (fs.existsSync(configPath)) {
+        let config = fs.readFileSync(configPath, 'utf8');
 
         const neonAuthUrl = process.env.NEON_AUTH_URL || 'YOUR_NEON_AUTH_URL';
         const neonApiUrl = process.env.NEON_API_URL || 'YOUR_NEON_API_URL';
@@ -36,28 +37,14 @@ async function build() {
         config = config.replace(/YOUR_NEON_AUTH_URL/g, neonAuthUrl);
         config = config.replace(/YOUR_NEON_API_URL/g, neonApiUrl);
 
-        fsStandard.writeFileSync(configPath, config);
-        console.log('Build: Neon variables injected into dist/src/js/config.js');
+        fs.writeFileSync(configPath, config);
+        console.log('Build: Neon variables injected into /dist/src/js/config.js');
     }
 
-    console.log('Build: Project bundled into /dist');
-}
-
-function copyRecursiveSync(src, dest) {
-    const exists = fsStandard.existsSync(src);
-    const stats = exists && fsStandard.statSync(src);
-    const isDirectory = exists && stats.isDirectory();
-    if (isDirectory) {
-        fsStandard.mkdirSync(dest);
-        fsStandard.readdirSync(src).forEach((childItemName) => {
-            copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
-        });
-    } else {
-        fsStandard.copyFileSync(src, dest);
-    }
+    console.log('Build: Project successfully bundled into /dist');
 }
 
 build().catch(err => {
-    console.error(err);
+    console.error('Build Error:', err);
     process.exit(1);
 });

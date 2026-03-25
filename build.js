@@ -1,8 +1,5 @@
-const fs = require('fs-extra');
-const path = require('path');
-
-// Ensure fs-extra is available (it's not by default, but I'll use standard fs for simplicity)
 const fsStandard = require('fs');
+const path = require('path');
 
 async function build() {
     const root = __dirname;
